@@ -39,7 +39,7 @@ ${{ env.myVar }} =/= ${ myVar }
 
 ## Workflow syntax
 
-```
+```yml
 name:    # [optional] The name of the workflow. Ex : myCICD.
 run-name:    # [optional] The name of the running workflow. Some env value can be added. Ex : workflow triggered by @${{ github.triggering_actor }}.
 on:    # [required] How the workflow will be triggered. More info : https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
