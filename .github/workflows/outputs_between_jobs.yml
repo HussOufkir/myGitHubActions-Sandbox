@@ -28,4 +28,4 @@ jobs:
         run: echo "::set-output name=out3::${{ needs.first_job.outputs.myOutput1 }}"
       - id: fourth_step_id
         name: fourth_step_name
-        run: echo "my final value is ${{ third_step_id.out3 }}"
+        run: echo "my final value is ${{ out3 }}"
