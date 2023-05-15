@@ -27,7 +27,7 @@ New method since runner version 2.298.2 : https://github.blog/changelog/2022-10-
 Example :
 
 ```
-echo "{myOutput}={myOutputValue123}" >> "$GITHUB_OUTPUT"
+echo "<myOutput>=<myOutputValue123>" >> "$GITHUB_OUTPUT"
 ```
 
 ### Reference a variable
