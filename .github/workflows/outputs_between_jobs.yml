@@ -38,4 +38,5 @@ jobs:
         name: sixth_step_name
         run: |
           echo "my second final value is ${{ steps.fourth_step_id.outputs.out4 }} and here is the content of the github_output file :"
-          echo " $GITHUB_OUTPUT "
+          cat $GITHUB_OUTPUT
+          echo "fin du fichier"
