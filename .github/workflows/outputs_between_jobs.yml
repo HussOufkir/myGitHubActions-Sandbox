@@ -31,10 +31,11 @@ jobs:
         run: echo "::set-output name=out3::${{ needs.first_job.outputs.myOutput1 }}"
       - id: fourth_step_id
         name: fourth_step_name
-        run: echo "my final value is ${{ steps.third_step_id.outputs.out3 }}"
+        run: |
+          echo "my final value is ${{ steps.third_step_id.outputs.out3 }}"
+          echo "out4=myOut" >> $GITHUB_OUTPUT
       - id: sixth_step_id
         name: sixth_step_name
         run: |
-          echo "out4=myOut" >> $GITHUB_OUTPUT
-          echo "my second final value is ${{ steps.sixth_step_id.outputs.out4 }} and here is the content of the github_output file :"
+          echo "my second final value is ${{ steps.fourth_step_id.outputs.out4 }} and here is the content of the github_output file :"
           echo " $GITHUB_OUTPUT "
