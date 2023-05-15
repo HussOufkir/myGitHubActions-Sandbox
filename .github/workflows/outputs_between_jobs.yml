@@ -32,3 +32,9 @@ jobs:
       - id: fourth_step_id
         name: fourth_step_name
         run: echo "my final value is ${{ steps.third_step_id.outputs.out3 }}"
+      - id: sixth_step_id
+        name: sixth_step_name
+        run: |
+          echo "out4=myOut" >> $GITHUB_OUTPUT
+          echo "my second final value is ${{ steps.sixth_step.outputs.out4 }} and here is the content of the github_output file :"
+          echo " $GITHUB_OUTPUT "
