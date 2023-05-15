@@ -1,8 +1,9 @@
 # myGitHubActions-Sandbox
-just a sandbox to test some github actions functionalities
+(__be careful with the information you will find here, it's just a sandbox__)
 
+## Workflow syntax
 
-
+```
 name:    # [optionnel] Nom du workflow. Ex : monWorkflow.
 run-name:    # [optionnel] Nom de l'execution du workflow. Peut être utilisé avec des variables. Ex : monExecution par @${{ github.actor }}.
 on:    # [requis] Evenements qui declenchent l'execution du workflow. Ex : push / [push, fork] /
@@ -92,3 +93,4 @@ jobs:    # [requis] Liste des jobs a executer.
 		secrets:   # [optionnel] Les secrets à utiliser pour exécuter le job.
             inherit:    # [optionnel] Si cette option est activée, les secrets du repository seront automatiquement inclus dans le job.
             <secret_id>:    # [optionnel] Le nom du secret à utiliser dans le job. Le secret doit être défini dans les paramètres du repository.
+```
