@@ -1,13 +1,42 @@
 # myGitHubActions-Sandbox
 (__be careful with the information you will find here, it's just a sandbox__)
 
+## Contexts
+Contexts are a way to access information about workflow runs, variables, runner environments, jobs, and steps. Each context is an object that contains properties, which can be strings or other objects.
+
+More info : https://docs.github.com/en/actions/learn-github-actions/contexts
+
+To use contexts : 
+```
+${{ <context> }}
+```
+
+## How-to
+### Store an output
+
+Old method will be disabled on 1st june 2023.
+
+Example :
+
+```
+echo "::set-output name=myOutput::myOutputValue123"
+```
+
+New method since runner version 2.298.2 : https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
+
+Example :
+
+```
+echo "{myOutput}={myOutputValue123}" >> "$GITHUB_OUTPUT"
+```
+
 ## Workflow syntax
 
 ```
-name:    # [optionnel] Nom du workflow. Ex : monWorkflow.
-run-name:    # [optionnel] Nom de l'execution du workflow. Peut être utilisé avec des variables. Ex : monExecution par @${{ github.actor }}.
-on:    # [requis] Evenements qui declenchent l'execution du workflow. Ex : push / [push, fork] /
-	<event_name>: (push, pull_request, ...)    # Nom de l'evenement. Ex : push, pull_request, ...
+name:    # [optional] The name of the workflow. Ex : myCICD.
+run-name:    # [optional] The name of the running workflow. Some env value can be added. Ex : workflow triggered by @${{ github.triggering_actor }}.
+on:    # [required] How the workflow will be triggered.
+	<event_name>:    # [optional] The event that trigger the execution of the workflow. Ex : pull_request / push / [push, fork] / ...
 		types:    # Types d'evenements a considerer. Ex : opened, edited, ... Ex:
 		branches:  (for pull_request|pull_request_target|push)    # Branche(s) a considerer. Ex : master, develop, feature/*
 		branches-ignore:   (for pull_request|pull_request_target|push)    # Branche(s) a ignorer. Ex : release/*, hotfix/*
