@@ -6,6 +6,7 @@ on:
 jobs:
 
   first_job:
+    runs-on: ubuntu-latest
     outputs:
       myOutput1: ${{ steps.first_step_id.out1 }} ${{ steps.second_step_id.out2 }}
     steps:
@@ -17,12 +18,14 @@ jobs:
         run: echo "::set-output name=out2::def"
 
   second_job:
+    runs-on: ubuntu-latest
+    needs: first_job
     outputs:
-      myOutput1: ${{ steps.first_step_id.out1 }} ${{ steps.second_step_id.out2 }}
+      myOutput2: ${{ steps.first_step_id.out1 }} ${{ steps.second_step_id.out2 }}
     steps:
       - id: third_step_id
         name: third_step_name
-        run: echo "::set-output name=out3::${{ first_job.outputs.myOutput1 }}"
+        run: echo "::set-output name=out3::${{ needs.first_job.outputs.myOutput1 }}"
       - id: fourth_step_id
         name: fourth_step_name
-        run: echo "my value is ${{ second_job.third_step_id.out3 }}"
+        run: echo "my final value is ${{ second_job.third_step_id.out3 }}"
