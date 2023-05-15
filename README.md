@@ -53,7 +53,7 @@ on:    # [required(with1child)] How the workflow will be triggered. More info : 
   paths-ignore:   (for push|pull_request|pull_request_target)    # [optional] File paths to ignore. Ex : docs/*.md, *.json, ...
  schedule:    # [optional] To plan the execution by one or more schedule.
   cron:    # [required] Plan with cron format. (0-59)(0-23)(1-31)(1-12)(0-6). Ex : '0 0 * * SAT' (midnight on saturday) / '15 2-4 * * 1,3' (every 15 min at 2,3,4 hour each SUN and TUE) / ...
- workflow_run:    # [optional] To be triggered by another workflow.
+ workflow_run:    # [optional] To be triggered by the run of another workflow.
   workflows:    # [required] Array of workflows to consider. Ex : [build, deploy, myWorkflow1] / myWorkFlow2 / ...
   types:    # [optional] Type of event (requested, in_progress, completed).
   branches:    # [optional] Branches to consider. Ex : master, develop, feature/*, ...
@@ -66,14 +66,21 @@ on:    # [required(with1child)] How the workflow will be triggered. More info : 
     description:    # [optional] Description of the input.
     default:    # [optional] Default value.
     options:    (for type:choice)    # [required] Available choice for the user.
- workflow_call:    # [optionnel] Evenement de lancement d'un autre workflow a partir du workflow courant.
-  inputs:    # Inputs requis pour le workflow appele. Ex : { "param1": "valeur1", "param2": "valeur2" }
-   <input_id>:
-    type:
-  outputs:    # Outputs du workflow appele. Ex : { "output1": ${{ steps.job1.outputs.output1 }}, "output2": ${{ steps.job2.outputs.output2 }} }
-  secrets:    # [optionnel] Liste des secrets utilises dans le workflow. Ex : { "SECRET_API_KEY": ${{ secrets.API_KEY }} }
-   <secret_id>:
-    required:
+ workflow_call:    # [optional] To be triggered by another workflow (in a job).
+  inputs:    # [optional] Required inputs. Ex : { "param1": "valeur1", "param2": "valeur2" }
+   <input_id>:    # [required] Inputs to use. 
+    type:    # [required] Type of input. Must be one of: boolean, string, number.
+    required:     # [required] Boolean that indicate if the input is required.
+    description:    # [optional] Description of the input.
+    default:    # [optional] Default value.
+  outputs:    # [optional] Outputs of the called workflow for the workflow who have initiate the call.
+   <output_id>:    # [required] Output to send.
+    description:    # [optional] Description of the output.
+    value:    # [required] Value to send. To map to job outputs. Ex: ${{ jobs.myJob.outputs.myOut }}
+  secrets:    # [optional] List of secrets used in the workflow.
+   <secret_id>:    # [optional] Secret to use.
+    required:    # [required] Indicate if the secret is required or not.
+    description:    # [optional] Description of the secret. 
 permissions:    # [optionnel] Permissions requises pour executer le workflow. Ex : "write" pour la creation de branches.
 env:    # [optionnel] Variables d'environnement globales.
 defaults:    # [optionnel] Definition des valeurs par defaut.
