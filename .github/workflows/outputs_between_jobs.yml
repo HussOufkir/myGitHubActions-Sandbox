@@ -16,6 +16,9 @@ jobs:
       - id: second_step_id
         name: second_step_name
         run: echo "::set-output name=out2::def"
+      - id: fifth_step_id
+        name: fifth_step_name
+        run: echo "here is my 5th value ${{ GITHUB_OUTPUT }}"
 
   second_job:
     runs-on: ubuntu-latest
@@ -28,4 +31,4 @@ jobs:
         run: echo "::set-output name=out3::${{ needs.first_job.outputs.myOutput1 }}"
       - id: fourth_step_id
         name: fourth_step_name
-        run: echo "my final value is ${{ myOutput2 }}"
+        run: echo "my final value is ${{ steps.third_step_id.out3 }}"
