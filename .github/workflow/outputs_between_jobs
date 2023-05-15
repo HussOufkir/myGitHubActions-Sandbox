@@ -1,0 +1,28 @@
+name: Test outputs between jobs
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  first_job:
+    outputs:
+      myOutput1: ${{ steps.first_step_id.out1 }} ${{ steps.second_step_id.out2 }}
+    steps:
+      - id: first_step_id
+        name: first_step_name
+        run: echo "::set-output name=out1::abc"
+      - id: second_step_id
+        name: second_step_name
+        run: echo "::set-output name=out2::def"
+
+  second_job:
+    outputs:
+      myOutput1: ${{ steps.first_step_id.out1 }} ${{ steps.second_step_id.out2 }}
+    steps:
+      - id: third_step_id
+        name: third_step_name
+        run: echo "::set-output name=out3::${{ first_job.outputs.myOutput1 }}"
+      - id: fourth_step_id
+        name: fourth_step_name
+        run: echo "my value is ${{ second_job.third_step_id.out3 }}"
