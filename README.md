@@ -54,15 +54,18 @@ on:    # [required(with1child)] How the workflow will be triggered. More info : 
 	schedule:    # [optional] To plan the execution by one or more schedule.
 		cron:    # [required] Plan with cron format. (0-59)(0-23)(1-31)(1-12)(0-6). Ex : '0 0 * * SAT' (midnight on saturday) / '15 2-4 * * 1,3' (every 15 min at 2,3,4 hour each SUN and TUE) / ...
 	workflow_run:    # [optional] To be triggered by another workflow.
-		workflows:    # Array of workflows to consider. Ex : [build, deploy] / ...
-		types:    # Type of event (requested, in_progress, completed).
-		branches:    # Branches to consider. Ex : master, develop, feature/*, ...
-		branches-ignore:    # Branches to ignore. Ex : release/*, hotfix/*, ...
-	workflow_dispatch:    # [optionnel] Evenement declenche manuellement. Ex : "Dispatch" sur l'interface GitHub Actions.
-		inputs:    # Inputs requis pour declencher l'evenement. Ex : { "env": { "description": "Environnement de deploiement", "required": true } }
-			<input_id>:
-				required:
-				type:
+		workflows:    # [required] Array of workflows to consider. Ex : [build, deploy, myWorkflow1] / myWorkFlow2 / ...
+		types:    # [optional] Type of event (requested, in_progress, completed).
+		branches:    # [optional] Branches to consider. Ex : master, develop, feature/*, ...
+		branches-ignore:    # [optional] Branches to ignore. Ex : release/*, hotfix/*, ...
+	workflow_dispatch:    # [optional] To be triggered manually.
+		inputs:    # [optional] Required inputs.
+			<input_id>:    # [required] Input to use in the workflow.
+				required:     # [required] Boolean that indicate if the input is required.
+				type:    # [required] Type of data. Must be one of: boolean, choice, number, string.
+				description:    # [optional] Description of the input.
+				default:    # [optional] Default value.
+				options:    (for type:choice)    # [required] Available choice for the user.
 	workflow_call:    # [optionnel] Evenement de lancement d'un autre workflow a partir du workflow courant.
 		inputs:    # Inputs requis pour le workflow appele. Ex : { "param1": "valeur1", "param2": "valeur2" }
 			<input_id>:
