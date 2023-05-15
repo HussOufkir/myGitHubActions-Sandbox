@@ -30,6 +30,13 @@ Example :
 echo "{myOutput}={myOutputValue123}" >> "$GITHUB_OUTPUT"
 ```
 
+### Reference a variable
+
+```
+${{ env.myVar }} =/= ${ myVar }
+```
+
+
 ## Workflow syntax
 
 ```
