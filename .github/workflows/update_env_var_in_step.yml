@@ -1,0 +1,34 @@
+name: Update env variable in a step
+
+on:
+  workflow_dispatch:
+
+env:
+  myVar1: one
+
+jobs:
+
+  first_job:
+    runs-on: ubuntu-latest
+    steps:
+      - id: first_step_id
+        name: first_step_name
+        run: echo "${{ env.myVar1 }}=three" >> $GITHUB_OUTPUT
+      - id: second_step_id
+        name: second_step_name
+        run: echo "${{ env.myVar1 }}"
+
+  second_job:
+    runs-on: ubuntu-latest
+    steps:
+      - id: third_step_id
+        name: third_step_name
+        run: echo "${{ env.myVar1 }}"
+
+  third_job:
+    needs: first_job
+    runs-on: ubuntu-latest
+    steps:
+      - id: fourth_step_id
+        name: fourth_step_name
+        run: echo "${{ env.myVar1 }}"
