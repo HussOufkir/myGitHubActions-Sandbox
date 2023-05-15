@@ -21,11 +21,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: first_job
     outputs:
-      myOutput2: ${{ steps.first_step_id.out1 }} ${{ steps.second_step_id.out2 }}
+      myOutput2: ${{ steps.third_step_id.out3 }}
     steps:
       - id: third_step_id
         name: third_step_name
         run: echo "::set-output name=out3::${{ needs.first_job.outputs.myOutput1 }}"
       - id: fourth_step_id
         name: fourth_step_name
-        run: echo "my final value is ${{ out3 }}"
+        run: echo "my final value is ${{ myOutput2 }}"
