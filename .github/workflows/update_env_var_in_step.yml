@@ -13,7 +13,7 @@ jobs:
     steps:
       - id: first_step_id
         name: first_step_name
-        run: echo "env.myVar1=three" >> "$GITHUB_ENV"
+        run: echo "myVar1=three" >> "$GITHUB_ENV"
       - id: second_step_id
         name: second_step_name
         run: echo "${{ env.myVar1 }}"
